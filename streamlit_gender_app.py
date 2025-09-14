@@ -29,7 +29,23 @@ import streamlit as st
 import os
 from pathlib import Path
 import urllib.request
-import cv2
+# Try importing OpenCV (cv2). If it's missing, show a friendly Streamlit error with
+# clear next steps instead of letting the app crash during import.
+try:
+    import cv2
+except Exception as e:
+    st.error(
+        "Python package 'opencv-python' (cv2) is not installed or failed to import.
+
+"
+        "If you're running locally: run `pip install opencv-python` or `pip install opencv-python-headless`.
+"
+        "If you're deploying on Streamlit Community Cloud / GitHub: add `opencv-python-headless` to your repository's requirements.txt and redeploy.
+
+"
+        f"Original import error: {e}"
+    )
+    st.stop()
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 import io
